@@ -23,3 +23,18 @@ YELLOW_LASER = pygame.image.load(os.path.join("assets","pixel_laser_yellow.png")
 
 ## Background
 BG = pygame.image.load(os.path.join("assets","background-black.png"))
+
+def main():
+    run = True
+    FPS = 60
+    clock = pygame.time.Clock()
+
+    while run:
+        clock.tick(FPS) ## to make speed consistent on all devices
+
+        ## check for event and get it
+        for event in pygame.event.get():
+            if event.type == pygame: ## to handle quit
+                run = False
+            #if event.type == pygame.KEYDOWN
+
