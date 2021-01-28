@@ -3,6 +3,10 @@ import os
 import time
 import random
 
+WIDTH, HEIGHT = 750, 750
+WIN = pygame.display.set_mode((WIDTH,HEIGHT))
+pygame.display.set_caption("Cosmoblaze Prototype")
+
 ## This one is image for player's ship
 YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets","pixel_ship_yellow.png"))
 
