@@ -39,7 +39,37 @@ class Ship:
 
     def draw(self, window):
         pygame.draw.rect(window, (255,0,0), (self.x, self.y, 50, 50))
+
+    def get_width(self):
+        return self.ship_img.get_width()
+
+    def get_height(self):
+        return self.ship_img.get_height()
         
+## Blueprints for player's ship
+class Player(Ship):
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.self_img = YELLOW_SPACE_SHIP
+        self.laser_img = YELLOW_LASER
+        self.mask = pygame.mask.from_surface(self.ship_img)
+        self.max_health = health
+
+## Blueprints for enemy ship
+class Enemy(Ship):
+    COLOR_MAP = {
+        "red": (RED_SPACE_SHIP, RED_LASER),
+        "green": (GREEN_SPACE_SHIP, GREEN_LASER),
+        "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
+    }
+
+    def __init__(self, x, y, color, health=100):
+        super().__init__(x, y, health)
+        self.ship_img, self.laser_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.ship_img)
+
+    def move(self, vel):
+        self.y += vel
 
 def main():
     run = True
@@ -47,6 +77,8 @@ def main():
     level = 1
     lives = 5
     player_vel = 5
+
+    player = Player(300,650)
 
     main_font = pygame.font.SysFont("comicsans", 50)
     clock = pygame.time.Clock()
@@ -74,11 +106,11 @@ def main():
 
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_a] and ship.x - player_vel > 0: ## moving left
-            ship.x -= player_vel
-        if keys[pygame.K_d] and ship.x + player_vel < WIDTH: ## moving right
-            ship.x += player_vel
-        if keys[pygame.K_w] and ship.y - player_vel > 0: ## moving up
-            ship.y -= player_vel
-        if keys[pygame.K_s] and ship.y + player_vel < HEIGHT: ## moving down
-            ship.y += player_vel
+        if keys[pygame.K_a] and player.x - player_vel > 0: ## moving left
+            player.x -= player_vel
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < player.get_width: ## moving right
+            player.x += player_vel
+        if keys[pygame.K_w] and player.y - player_vel > 0: ## moving up
+            player.y -= player_vel
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT: ## moving down
+            player.y += player_vel
