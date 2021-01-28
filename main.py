@@ -44,7 +44,7 @@ class Ship:
         for laser in self.lasers:
             laser.draw(window)
 
-    def move_lasers(self, vel, objs):
+    def move_lasers(self, vel, obj):
         self.cooldown()
 
         for laser in self.lasers:
