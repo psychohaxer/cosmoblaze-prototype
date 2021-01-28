@@ -29,8 +29,13 @@ def main():
     FPS = 60
     clock = pygame.time.Clock()
 
+    def redraw_window():
+        WIN.blit(BG, (0,0))
+        pygame.display.update()
+
     while run:
         clock.tick(FPS) ## to make speed consistent on all devices
+        redraw_window()
 
         ## check for event and get it
         for event in pygame.event.get():
